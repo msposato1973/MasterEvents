@@ -1,5 +1,6 @@
 package com.fsbtech.interviews.repository;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,9 +38,27 @@ public  class EventRepository {
 		return resultEvents;
 	}
 	
-	public static List<Event> listEvents() {
+	public static List<Event> listEvents(String cat, String subcat) {
+		List<Event> result = new ArrayList<>();
 		
-		return null;
+			mapEvent.forEach((key, value) -> {
+				if(isCategorInit(value,cat) && isSubcatInit(value, subcat)) {
+					result.add(value);
+				}
+			});
+			
+		// result = mapEvent.values().stream().collect(Collectors.toList()); 
+			
+			
+		return result;
+	}
+	
+	private static boolean isCategorInit(Event e, String cat) {
+		return (e.getSubCategory().getCategory().getRef().equals(cat));
+	}
+	
+	private static boolean isSubcatInit(Event e, String subcat) {
+		return (e.getSubCategory().getRef().equals(subcat));
 	}
 	
 }
